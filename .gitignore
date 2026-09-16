@@ -1,0 +1,35 @@
+# ---------- secrets ----------
+.env
+.env.*
+!.env.example
+
+# ---------- python ----------
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ipynb_checkpoints/
+
+# ---------- node / frontend ----------
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ---------- editors and os ----------
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ---------- run artifacts ----------
+reports/
+*.log
