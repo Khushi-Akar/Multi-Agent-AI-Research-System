@@ -14,6 +14,8 @@ Run it with:
 import json
 import time
 
+import os
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
@@ -23,14 +25,17 @@ from agents import build_search_agent, build_reader_agent, writer_chain, critic_
 
 app = FastAPI(title="Multi-Agent Research System")
 
-# The Vite dev server runs on a different port, so the browser needs permission
-# to call this one. Add your deployed frontend URL here later.
+# Local dev origins always work. The deployed frontend's URL is added via the
+# FRONTEND_URL environment variable set on the hosting platform (Render),
+# so no code change is needed when that URL is known after deployment.
+allowed_origins = ["http://localhost:5173", "http://127.0.0.1:5173"]
+frontend_url = os.getenv("FRONTEND_URL")
+if frontend_url:
+    allowed_origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-    ],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
